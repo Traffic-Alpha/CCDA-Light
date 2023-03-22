@@ -39,7 +39,7 @@ The existing RL-based studies primarily employ one of the following four action 
 - [Choose next phase](./ChooseNextPhase), choosing a phase among all possible phases at each time step.
 - [Next or not](./NextorNot/), determining whether to change to the next phase or not at each time step. 
 - [Set current phase duration](./SetCurrentPhaseDuration/), setting the phase duration at the beginning of each phase.
-- [Adjust single phase](), modifying only one phase in the whole cycle. 
+- [Adjust single phase](./CycleSinglePhaseAdjust/), modifying only one phase in the whole cycle. 
 
 The following figure illustrates examples of these four action designs for a TSC system with four phases, with the assumption that the starting time is at time $t$.
 
