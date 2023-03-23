@@ -1,6 +1,8 @@
 # TSC Adjust All Phases - 中文文档
 
-`TSC-AdjustAllPhases` 是论文 `A Practical and Reliable Framework for Real-World Adaptive Traffic Signal Cycle Control Using Reinforcement Learning` 的代码实现。 
+`TSC-AdjustAllPhases` 是论文 `A Practical and Reliable Framework for Real-World Adaptive Traffic Signal Cycle Control Using Reinforcement Learning` 的代码实现。下图展示了本文所提出的整体框架。
+
+<div align=center><img src ="./doc/overall_structure.png"/></div>
 
 在本文中，我们主要做了以下的几点：
 
