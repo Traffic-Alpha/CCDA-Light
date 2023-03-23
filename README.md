@@ -4,7 +4,6 @@
 
 `TSC-AdjustAllPhases` is an implementation of `A Practical and Reliable Framework for Real-World Adaptive Traffic Signal Cycle Control Using Reinforcement Learning`. The following figure illustrates the overall structure of the proposed framework. 
 
-
 <div align=center><img src ="./doc/overall_structure.png"/></div>
 
 We pay more attention to the following points:
