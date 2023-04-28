@@ -21,7 +21,9 @@
 
 In this paper, we propose a framework that can achieve good performance under different intervention frequencies. The **intervention frequency** is an important factor in realworld TSC system due to *limited resources*, *safety concerns*, *disruption to traffic flow*, and *stability of the system*. The following figure illustrates the overall structure of the proposed framework, including the (1) new action design, (2) multi-discrete policy optimization approach. 
 
-<div align=center><img src ="./doc/overall_structure.png"/></div>
+<div align=center>
+  <img src ="./doc/overall_structure.png" width="70%" height="auto" style="margin: 0 1%;"/>
+</div>
 
 We pay more attention to the following points:
 
