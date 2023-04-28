@@ -1,7 +1,6 @@
 # MDLight under varying intervention frequencies
 
 
-
 [MDLight under varying intervention frequencies（中文文档）](./README_zh_CN.md)
 
 ## Outline
@@ -33,8 +32,7 @@ methods under varying intervention frequencies.
 
 ## What is Intervention Frequencies
 
-In RL-based TSC, the intervention frequency refers to the rate at which the agent modifies the traffic signal in
-response to variations in traffic patterns. The following figure illustrates the application of the intervention frequency in a cycle control action design, such as *adjust single phase*.
+In RL-based TSC, the intervention frequency refers to the rate at which the agent modifies the traffic signal in response to variations in traffic patterns. The following figure illustrates the application of the intervention frequency in a cycle control action design, such as *adjust single phase*.
 
 <div align=center><img src ="./doc/intervention_frequency.png"/></div>
 
