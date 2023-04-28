@@ -1,26 +1,41 @@
-# TSC Adjust All Phases
+# MDLight under varying intervention frequencies
 
-[TSC Adjust All Phases（中文文档）](./README_zh_CN.md)
 
-`TSC-AdjustAllPhases` is an implementation of `A Practical and Reliable Framework for Real-World Adaptive Traffic Signal Cycle Control Using Reinforcement Learning`. The following figure illustrates the overall structure of the proposed framework. 
+
+[MDLight under varying intervention frequencies（中文文档）](./README_zh_CN.md)
+
+## Outline
+
+- [MDLight under varying intervention frequencies](#mdlight-under-varying-intervention-frequencies)
+  - [Outline](#outline)
+  - [Introduction](#introduction)
+  - [What is Intervention Frequencies](#what-is-intervention-frequencies)
+  - [SUMO Network](#sumo-network)
+  - [Five Action Designs in existing RL-based TSC methods](#five-action-designs-in-existing-rl-based-tsc-methods)
+  - [Getting Start](#getting-start)
+
+
+## Introduction
+
+`MDLight` is an implementation of `A multi-discrete reinforcement learning framework for adaptive traffic signal cycle control under varying intervention frequencies`. 
+
+In this paper, we propose a framework that can achieve good performance under different intervention frequencies. The **intervention frequency** is an important factor in realworld TSC system due to *limited resources*, *safety concerns*, *disruption to traffic flow*, and *stability of the system*. The following figure illustrates the overall structure of the proposed framework, including the (1) new action design, (2) multi-discrete policy optimization approach. 
 
 <div align=center><img src ="./doc/overall_structure.png"/></div>
 
 We pay more attention to the following points:
 
-- We present an adaptive control framework that utilizes a novel action design adjust all phases with a multi-discrete PPO algorithm for the TSC problem.
-- Intervention frequency is introduced to restrict the interaction between the agent and the environment. 
-- Besides efficiency, three novel evaluation metrics are proposed to comprehensively measure the performance of different TSC methods.
+- The TSC system in this study explicitly considers intervention frequency. We analyze the learned policies and compare the performance of different TSC
+methods under varying intervention frequencies.
+- We present an adaptive control framework named **MDLight** that utilizes a novel action design adjust all phases with a multi-discrete policy optimization algorithm for the TSC problem.
 
+## What is Intervention Frequencies
 
+In RL-based TSC, the intervention frequency refers to the rate at which the agent modifies the traffic signal in
+response to variations in traffic patterns. The following figure illustrates the application of the intervention frequency in a cycle control action design, such as *adjust single phase*.
 
-## Outline
+<div align=center><img src ="./doc/intervention_frequency.png"/></div>
 
-- [TSC Adjust All Phases](#tsc-adjust-all-phases)
-  - [Outline](#outline)
-  - [SUMO Network](#sumo-network)
-  - [Five Action Designs](#five-action-designs)
-  - [Getting Start](#getting-start)
 
 
 ## SUMO Network
@@ -34,7 +49,7 @@ The [nets](./nets) folder includes the sumo maps and routes. As depicted in the 
 <div align=center><img src ="./doc/SUMO_Nets.png"/></div>
 
 
-## Five Action Designs
+## Five Action Designs in existing RL-based TSC methods
 
 The existing RL-based studies primarily employ one of the following four action designs:
 
@@ -53,8 +68,8 @@ In this paper, we propose a novel action design named `adjust all phases`, which
 
 There are two variants of `adjust all phases`:
 
-- [Adjust All Phases (Discrete)](./CyclePhaseAdjust_Discrete/). The discrete variation directly applies adjust all phases, where the action space covers all possible combinations of all phase duration changes.
-- [Adjust All Phases (Multi-Discrete)](./CyclePhaseAdjust_MultiDiscrete/). The multi-discrete variation converts discrete actions to multi-discrete actions by using a vector of individual discrete actions for each phase.
+- [MDLight (Discrete)](./CyclePhaseAdjust_Discrete/).  This approach directly applies adjust all phases, where the action space covers all possible combinations of all phase duration changes. However, action space will increase exponentially when the number of phases becomes larger. The PPO-Clip model is used in this approach.
+- [MDLight (Multi-Discrete)](./CyclePhaseAdjust_MultiDiscrete/). In contrast to the simple adjust all phases approach, MDLight (multi-discrete) converts discrete actions to multi-discrete actions by using a vector of individual discrete actions for each phase. This approach significantly reduces the size of the action space, especially when the number of signal phases is large. Furthermore, the multi-discrete policy optimization algorithm is utilized to optimize the policy
 
 
 ## Getting Start
