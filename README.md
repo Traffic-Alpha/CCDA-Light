@@ -1,60 +1,60 @@
 <!--
  * @Author: WANG Maonan
  * @Date: 2023-03-22 16:59:42
- * @Description: README for Adjust All Phases
- * @LastEditTime: 2024-05-01 16:38:25
+ * @Description: README for Paper AAP with CCDA
+ * @LastEditTime: 2024-06-13 01:45:18
 -->
-# MDLight under varying intervention frequencies
+# Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies
 
-[MDLight under varying intervention frequencies（中文文档）](./README_zh_CN.md)
+This repository contains the code for the paper "Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies".
 
-## Outline
+- [Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies](#traffic-signal-cycle-control-with-centralized-critic-and-decentralized-actors-under-varying-intervention-frequencies)
+  - [🎉 News](#-news)
+  - [🔑 Key Points](#-key-points)
+  - [📥 Installation](#-installation)
 
-- [MDLight under varying intervention frequencies](#mdlight-under-varying-intervention-frequencies)
-  - [Outline](#outline)
-  - [Introduction](#introduction)
-  - [What is Intervention Frequencies](#what-is-intervention-frequencies)
-  - [SUMO Network](#sumo-network)
-  - [Five Action Designs in existing RL-based TSC methods](#five-action-designs-in-existing-rl-based-tsc-methods)
-  - [Getting Start](#getting-start)
+## 🎉 News
 
+1. We have transitioned the simulation platform in the project from Aiolos to [TransSimHub](https://github.com/Traffic-Alpha/TransSimHub) (TSHub). We extend our gratitude to our colleagues at SenseTime, **@KanYuheng (阚宇衡)**, **@MaZian (马子安)**, and **@XuChengcheng (徐承成)** (listed alphabetically) for their contributions. The development of TransSimHub (TSHub) is built upon the foundation of Aiolos.
 
-## Introduction
+## 🔑 Key Points
 
-`MDLight` is an implementation of `A multi-discrete reinforcement learning framework for adaptive traffic signal cycle control under varying intervention frequencies`. 
-
-In this paper, we propose a framework that can achieve good performance under different intervention frequencies. The **intervention frequency** is an important factor in realworld TSC system due to *limited resources*, *safety concerns*, *disruption to traffic flow*, and *stability of the system*. The following figure illustrates the overall structure of the proposed framework, including the (1) new action design, (2) multi-discrete policy optimization approach. 
+- **Adaptation to Varying Intervention Frequencies**: The intervention frequency significantly impacts the effectiveness of traffic signal control systems, influenced by factors such as resource limitations, safety, traffic flow disruption, and system stability. This research introduces varying intervention frequencies to the TSC system, defining it as the rate at which traffic signals are adjusted in response to changing traffic conditions. This approach is particularly beneficial for scenarios requiring manual verification, where lower frequencies may be preferable.
 
 <div align=center>
-  <img src ="./doc/overall_structure.png" width="70%" height="auto" style="margin: 0 1%;"/>
+   <img src="./assets/intervention_frequency.png" width="50%" >
 </div>
-
-We pay more attention to the following points:
-
-- The TSC system in this study explicitly considers intervention frequency. We analyze the learned policies and compare the performance of different TSC
-methods under varying intervention frequencies.
-- We present an adaptive control framework named **MDLight** that utilizes a novel action design adjust all phases with a multi-discrete policy optimization algorithm for the TSC problem.
-
-## What is Intervention Frequencies
-
-In RL-based TSC, the intervention frequency refers to the rate at which the agent modifies the traffic signal in response to variations in traffic patterns. The following figure illustrates the application of the intervention frequency in a cycle control action design, such as *adjust single phase*.
-
-<div align=center><img src ="./doc/intervention_frequency.png"/></div>
+<p align="center">An example of applying the intervention frequency based on cycle-based control action design in a four-phase traffic signal system</p>
 
 
+- **Enhanced Action Utilization**: To accommodate varying intervention frequencies, particularly lower frequencies, it is crucial for the control agent to maximize the impact of each action taken. Our research introduces a novel action strategy named `adjust all phases`, which allows for the simultaneous adjustment of all traffic phases within a single cycle, thereby increasing the effectiveness of each intervention.
 
-## SUMO Network
-
-The [nets](./nets) folder includes the sumo maps and routes. As depicted in the following figure, the topologies and phases of the three intersections are described as follows:
-
-- **INT-1**, a 4-way intersection with $4$ phases; 
-- **INT-2**, a 4-way intersection with $6$ phases; 
-- **INT-3**, the 3-way intersection scenario with $3$ phases.
-
-<div align=center><img src ="./doc/SUMO_Nets.png"/></div>
+<div align=center>
+   <img src="./assets/adjust_all_phases.png" width="50%" >
+</div>
+<p align="center">An example of adjust all phases in a four phases traffic signal system</p>
 
 
-## Five Action Designs in existing RL-based TSC methods
+- **Efficient Management of Large Action Spaces**: This research employs a Centralized Critic and Decentralized Actors (CCDA) architecture to effectively manage large action spaces. Decentralized actors are responsible for adjusting individual signal phases, which reduces the complexity of the action space. Simultaneously, a centralized critic evaluates the overall traffic scenario, ensuring coordinated actions among the decentralized actors, thus enhancing overall system performance.
+
+<div align=center>
+   <img src="./assets/overall_framework.png" width="50%" >
+</div>
+<p align="center">The framework of our method with the intervention frequency</p>
+
+
+## 📥 Installation
+
+Before using, make sure [TSHub](https://github.com/Traffic-Alpha/TransSimHub/tree/main) is installed.
+
+```shell
+git clone https://github.com/Traffic-Alpha/TransSimHub.git
+cd TransSimHub
+pip install -e ".[rl]"
+```
+
+
+<!-- ## Five Action Designs in existing RL-based TSC methods
 
 The existing RL-based studies primarily employ one of the following four action designs:
 
@@ -67,20 +67,7 @@ The following figure illustrates examples of these four action designs for a TSC
 
 <div align=center><img src ="./doc/four_common_action_designs.png"/></div>
 
-In this paper, we propose a novel action design named `adjust all phases`, which can modify the duration of all phases in one cycle. The following figure illustrates examples of action design `adjust all phases`.
-
-<div align=center><img src ="./doc/adjust_all_phases.png"/></div>
-
 There are two variants of `adjust all phases`:
 
 - [MDLight (Discrete)](./CyclePhaseAdjust_Discrete/).  This approach directly applies adjust all phases, where the action space covers all possible combinations of all phase duration changes. However, action space will increase exponentially when the number of phases becomes larger. The PPO-Clip model is used in this approach.
-- [MDLight (Multi-Discrete)](./CyclePhaseAdjust_MultiDiscrete/). In contrast to the simple adjust all phases approach, MDLight (multi-discrete) converts discrete actions to multi-discrete actions by using a vector of individual discrete actions for each phase. This approach significantly reduces the size of the action space, especially when the number of signal phases is large. Furthermore, the multi-discrete policy optimization algorithm is utilized to optimize the policy
-
-
-## Getting Start
-
-All the scripts can be found in [scripts](./scripts/). For example, we can run the following command to train the models with of five action designs separately on $\Delta=60$, **INT-1**:
-
-```shell
-bash ./scripts/delta_60/fourWay_4phase_stable.sh
-```
+- [MDLight (Multi-Discrete)](./CyclePhaseAdjust_MultiDiscrete/). In contrast to the simple adjust all phases approach, MDLight (multi-discrete) converts discrete actions to multi-discrete actions by using a vector of individual discrete actions for each phase. This approach significantly reduces the size of the action space, especially when the number of signal phases is large. Furthermore, the multi-discrete policy optimization algorithm is utilized to optimize the policy. -->
