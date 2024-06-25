@@ -2,7 +2,7 @@
  * @Author: WANG Maonan
  * @Date: 2023-03-22 16:59:42
  * @Description: README for Paper AAP with CCDA
- * @LastEditTime: 2024-06-13 01:45:18
+ * @LastEditTime: 2024-06-18 21:44:00
 -->
 # Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies
 
@@ -12,6 +12,7 @@ This repository contains the code for the paper "Traffic Signal Cycle Control wi
   - [🎉 News](#-news)
   - [🔑 Key Points](#-key-points)
   - [📥 Installation](#-installation)
+  - [📚 Citation](#-citation)
 
 ## 🎉 News
 
@@ -53,6 +54,18 @@ cd TransSimHub
 pip install -e ".[rl]"
 ```
 
+## 📚 Citation
+
+If you find this work useful, please cite our papers:
+
+```bibtex
+@article{wang2024traffic,
+   title={Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies}, 
+   author={Maonan Wang and Yirong Chen and Yuheng Kan and Chengcheng Xu and Michael Lepech and Man-On Pun and Xi Xiong},
+   year={2024},
+   journal={arXiv preprint arXiv:2406.08248},
+}
+```
 
 <!-- ## Five Action Designs in existing RL-based TSC methods
 
