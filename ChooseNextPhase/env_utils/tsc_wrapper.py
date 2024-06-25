@@ -4,7 +4,7 @@
 @Description: 处理 TSCHub ENV 中的 state, reward
 + state: 5 个时刻的每一个 movement 的 queue length
 + reward: 路口总的 waiting time
-@LastEditTime: 2024-06-18 21:56:08
+@LastEditTime: 2024-06-18 22:42:00
 '''
 import numpy as np
 import gymnasium as gym
@@ -56,11 +56,11 @@ class TSCEnvWrapper(gym.Wrapper):
     
     def reward_wrapper(self, states) -> float:
         """返回整个路口的排队长度的平均值
+        Noted: 这里需要优化所有车的等待时间, 而不是停止车辆的等待时间
         """
-        total_waiting_time = 0
-        for _, veh_info in states['vehicle'].items():
-            total_waiting_time += veh_info['waiting_time']
-        return -total_waiting_time
+        waiting_times = [veh['waiting_time'] for veh in states['vehicle'].values()]
+        
+        return -np.mean(waiting_times) if waiting_times else 0
     
     def info_wrapper(self, infos, occupancy):
         """在 info 中加入每个 phase 的占有率

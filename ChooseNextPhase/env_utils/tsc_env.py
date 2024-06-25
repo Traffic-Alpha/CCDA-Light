@@ -2,7 +2,7 @@
 @Author: WANG Maonan
 @Date: 2023-09-04 20:43:53
 @Description: 信号灯控制环境
-@LastEditTime: 2024-06-18 22:02:08
+@LastEditTime: 2024-06-25 16:45:45
 '''
 import gymnasium as gym
 
@@ -13,7 +13,10 @@ class TSCEnvironment(gym.Env):
     def __init__(self, 
                  sumo_cfg:str, num_seconds:int, 
                  tls_ids:List[str], tls_action_type:str, 
-                 delta_time:int, use_gui:bool=False
+                 delta_time:int, use_gui:bool=False,
+                 trip_info:str=None, summary:str=None, 
+                 statistic_output:str=None,
+                 tls_state_add:str=None
         ) -> None:
         super().__init__()
 
@@ -26,6 +29,10 @@ class TSCEnvironment(gym.Env):
             num_seconds=num_seconds,
             tls_action_type=tls_action_type,
             delta_time=delta_time,
+            trip_info=trip_info,
+            summary=summary,
+            statistic_output=statistic_output,
+            tls_state_add=tls_state_add,
             use_gui=use_gui,
             is_libsumo=(not use_gui), # 如果不开界面, 就是用 libsumo
         )

@@ -48,7 +48,7 @@ def train_model(env, delta_time, tensorboard_path, callback_list):
         tensorboard_log=tensorboard_path, 
         device=device
     )
-    model.learn(total_timesteps=1e5, tb_log_name=f'ChooseNextPhase_{delta_time}', callback=callback_list)
+    model.learn(total_timesteps=1e6, tb_log_name=f'ChooseNextPhase_{delta_time}', callback=callback_list)
     return model
 
 
