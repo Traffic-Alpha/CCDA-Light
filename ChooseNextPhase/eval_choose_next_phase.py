@@ -2,7 +2,7 @@
 @Author: WANG Maonan
 @Date: 2024-06-25 16:35:23
 @Description: 测试 Choose Next Phase, 获得 Output 文件
-@LastEditTime: 2024-06-25 17:34:15
+LastEditTime: 2024-06-27 13:33:31
 '''
 import shutil
 import torch
