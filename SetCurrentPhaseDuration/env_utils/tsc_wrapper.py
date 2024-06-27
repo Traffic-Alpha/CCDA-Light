@@ -4,7 +4,7 @@
 @Description: 处理 TSCHub ENV 中的 state, reward
 + state: 5 个时刻的每一个 movement 的 queue length + 当前相位信息（与 Choose Next Phase 的 state 不同, 这里需要加入描述当前相位的信息，因为这里每次动作 action 的意思不一样）
 + reward: 路口总的 waiting time
-@LastEditTime: 2024-06-27 19:56:26
+@LastEditTime: 2024-06-27 20:09:26
 '''
 import numpy as np
 import gymnasium as gym
@@ -25,6 +25,7 @@ class TSCEnvWrapper(gym.Wrapper):
         self.movement_ids = None
         self.phase2movements = None
         self.occupancy = OccupancyList()
+        self.available_green_phase_duration = [5,10,15,20]
     
     def _get_initial_state(self) -> List[int]:
         # 返回初始状态，这里假设所有状态都为 0
@@ -35,7 +36,7 @@ class TSCEnvWrapper(gym.Wrapper):
     
     @property
     def action_space(self):
-        return gym.spaces.Discrete(2) # Next ot Not 的动作空间是 2
+        return gym.spaces.Discrete(4) # 可以从 5,10,15,20 四个时间里面进行选择
     
     @property
     def observation_space(self):
@@ -86,25 +87,25 @@ class TSCEnvWrapper(gym.Wrapper):
         self.phase2movements = state['tls'][self.tls_id]['phase2movements']
         # 处理路口动态信息
         occupancy, _, this_phase = self.state_wrapper(state=state)
-        self.states.append(occupancy)
+        self.states.append(occupancy.copy())
         state = self.get_state()
         return {"occ":state, "phase_info":this_phase}, {'step_time':0}
     
 
     def step(self, action: int) -> Tuple[Any, SupportsFloat, bool, bool, Dict[str, Any]]:
         can_perform_action = False # 是否可以做动作
-        action = {self.tls_id: action} # 构建单路口 action 的动作
+        action = {self.tls_id: self.available_green_phase_duration[action]} # 构建单路口 action 的动作
         while not can_perform_action:
             states, rewards, truncated, dones, infos = super().step(action) # 与环境交互
             occupancy, can_perform_action, this_phase = self.state_wrapper(state=states) # 处理每一帧的数据
             # 记录每一时刻的数据
-            self.occupancy.add_element(occupancy)
+            self.occupancy.add_element(occupancy.copy())
         
         # 处理好的时序的 state
         avg_occupancy = self.occupancy.calculate_average()
         rewards = self.reward_wrapper(states=states) # 计算 vehicle waiting time
         infos = self.info_wrapper(infos, occupancy=avg_occupancy) # info 里面包含每个 phase 的排队
-        self.states.append(avg_occupancy) # 观测值添加占有率
+        self.states.append(avg_occupancy.copy()) # 观测值添加占有率
         state = self.get_state() # 得到 state
 
         return {"occ":state, "phase_info":this_phase}, rewards, truncated, dones, infos
