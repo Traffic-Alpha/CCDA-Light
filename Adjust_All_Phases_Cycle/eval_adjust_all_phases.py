@@ -2,7 +2,7 @@
 @Author: WANG Maonan
 @Date: 2024-05-01 19:26:54
 @Description: 测试 Adjust All Phase 的模型, 得到信号灯策略曲线
-@LastEditTime: 2024-06-28 00:32:12
+LastEditTime: 2024-06-29 02:07:14
 '''
 import os
 import torch
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     env = SubprocVecEnv([make_env(env_index=f'{i}', **params) for i in range(1)])
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model_path = path_convert(f'./save_models/{delta_time}/rl_model_100000_steps.zip')
+    model_path = path_convert(f'./save_models/{delta_time}/best_model.zip')
     model = PPO.load(model_path, env=env, device=device)
 
     # 使用模型进行测试
