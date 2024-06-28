@@ -2,7 +2,7 @@
  * @Author: WANG Maonan
  * @Date: 2023-03-22 16:59:42
  * @Description: README for Paper AAP with CCDA
- * @LastEditTime: 2024-06-28 20:36:52
+ * @LastEditTime: 2024-06-29 02:12:01
 -->
 # Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies
 
@@ -172,9 +172,9 @@ If you find this work useful, please cite our papers:
 
 ```bibtex
 @article{wang2024traffic,
-   title={Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies}, 
-   author={Maonan Wang and Yirong Chen and Yuheng Kan and Chengcheng Xu and Michael Lepech and Man-On Pun and Xi Xiong},
-   year={2024},
-   journal={arXiv preprint arXiv:2406.08248},
+  title={Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies},
+  author={Wang, Maonan and Chen, Yirong and Kan, Yuheng and Xu, Chengcheng and Lepech, Michael and Pun, Man-On and Xiong, Xi},
+  journal={arXiv preprint arXiv:2406.08248},
+  year={2024}
 }
 ```
