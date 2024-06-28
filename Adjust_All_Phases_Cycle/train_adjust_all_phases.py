@@ -3,7 +3,7 @@
 @Date: 2024-05-01 19:10:59
 @Description: 训练同时修改所有相位
 -> python train_adjustAllPhases.py --delta_time 120
-@LastEditTime: 2024-06-28 15:47:14
+@LastEditTime: 2024-06-28 20:58:12
 '''
 import os
 import torch
@@ -14,7 +14,12 @@ from tshub.utils.get_abs_path import get_abs_path
 
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import SubprocVecEnv, VecNormalize
-from stable_baselines3.common.callbacks import CallbackList, CheckpointCallback
+from stable_baselines3.common.callbacks import (
+    CallbackList, 
+    CheckpointCallback, 
+    StopTrainingOnNoModelImprovement, 
+    EvalCallback
+)
 
 from env_utils.make_tsc_env import make_env
 from train_utils.sb3_utils import linear_schedule
@@ -37,16 +42,16 @@ def train_model(env, delta_time, tensorboard_path, callback_list):
     model = PPO(
         "MlpPolicy", 
         env, 
-        batch_size=128, 
+        batch_size=256, 
         n_steps=7200//delta_time, # 每次更新的样本数量为 n_steps*NUM_CPUS, n_steps 太小可能会收敛到局部最优
-        n_epochs=10, # 每次更新时，用同一批数据进行优化的次数。
-        learning_rate=linear_schedule(1e-3),
+        n_epochs=5, # 每次更新时，用同一批数据进行优化的次数。
+        learning_rate=linear_schedule(5e-4),
         verbose=True,
         policy_kwargs=policy_kwargs, 
         tensorboard_log=tensorboard_path, 
         device=device
     )
-    model.learn(total_timesteps=1e5, tb_log_name=f'CycleAdjustPhases_{delta_time}', callback=callback_list)
+    model.learn(total_timesteps=1e6, tb_log_name=f'CycleAdjustPhases_{delta_time}', callback=callback_list)
     return model
 
 if __name__ == '__main__':
@@ -85,7 +90,19 @@ if __name__ == '__main__':
         save_path=model_path,
         save_vecnormalize=True
     )
-    callback_list = CallbackList([checkpoint_callback])
+    stop_callback = StopTrainingOnNoModelImprovement(
+        max_no_improvement_evals=15,
+        verbose=True
+    ) # 何时停止
+    eval_callback = EvalCallback(
+        env,
+        eval_freq=7200//delta_time*2,
+        best_model_save_path=model_path,
+        callback_after_eval=stop_callback, # 每次验证之后调用, 是否已经不变了, 需要停止
+        verbose=1
+    ) # 保存最优模型
+
+    callback_list = CallbackList([checkpoint_callback, eval_callback])
 
     model = train_model(env, delta_time, tensorboard_path, callback_list)
 
