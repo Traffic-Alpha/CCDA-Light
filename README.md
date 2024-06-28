@@ -2,7 +2,7 @@
  * @Author: WANG Maonan
  * @Date: 2023-03-22 16:59:42
  * @Description: README for Paper AAP with CCDA
- * @LastEditTime: 2024-06-28 01:05:03
+ * @LastEditTime: 2024-06-28 20:36:52
 -->
 # Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies
 
@@ -85,10 +85,10 @@ The image below illustrates the four commonly adopted agent designs for TSC task
 </div>
 <p align="center">Four Commonly Used Agent Designs</p>
 
-To train a model, run the `train_METHOD_NAME.py` script. For instance, to train the `Adjust_Single_Phase_Cycle` model with 20 simultaneous simulations and an action interval of 60 seconds, use the following command:
+To train a model, run the `train_METHOD_NAME.py` script. For instance, to train the `Adjust_All_Phases_Cycle` model with 20 simultaneous simulations and an action interval of 60 seconds, use the following command:
 
 ```shell
-python train_adjust_single_phase.py --delta_time 60 --num_envs 20
+python train_adjust_all_phases.py --delta_time 60 --num_envs 20
 ```
 
 You can also use the `train_deltas.sh` script to train models at different delta times more conveniently:
@@ -102,6 +102,13 @@ After training, two folders, `log` and `save_models`, will be created. The `log`
 ```shell
 python plot_rewards.py --action_type Adjust_All_Phases_Cycle --delta_time 60
 ```
+
+The image below illustrates the reward curve for `Adjust_All_Phases_Cycle` when $\Delta t =60$.
+
+<div align=center>
+   <img src="./_assets/reward_Adjust_All_Phases_Cycle_60.png" width="90%" >
+</div>
+<p align="center">The Reward Curve for Adjust All Phases (delta t=60)</p>
 
 ## 🧪 Evaluation
 
@@ -156,6 +163,7 @@ You can also use the `plot_tls_program.py` script to visualize the phase changes
 ```shell
 python plot_tls_program.py --action_type Adjust_All_Phases_Cycle --delta_time 60
 ```
+
 
 
 ## 📚 Citation
