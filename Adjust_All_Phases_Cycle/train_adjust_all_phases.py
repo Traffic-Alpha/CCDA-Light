@@ -3,7 +3,7 @@
 @Date: 2024-05-01 19:10:59
 @Description: 训练同时修改所有相位
 -> python train_adjustAllPhases.py --delta_time 120
-@LastEditTime: 2024-05-01 23:57:09
+@LastEditTime: 2024-06-28 15:47:14
 '''
 import os
 import torch
@@ -52,8 +52,10 @@ def train_model(env, delta_time, tensorboard_path, callback_list):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process delta_time.')
     parser.add_argument('--delta_time', type=int, default=None, help='The delta time value')
+    parser.add_argument('--num_envs', type=int, default=10, help='The number of envs')
     args = parser.parse_args() # Parse the arguments
     delta_time = args.delta_time # Use the delta_time argument
+    num_envs = args.num_envs # 同时开启的环境数量
 
     log_path = path_convert(f'./log/{delta_time}/')
     model_path = path_convert(f'./save_models/{delta_time}/')
@@ -66,7 +68,7 @@ if __name__ == '__main__':
         os.makedirs(tensorboard_path)
     
     # Define the parameters for the environment creation
-    sumo_cfg = path_convert("../nets/fourWay/env/single_junction.sumocfg")
+    sumo_cfg = path_convert("../sumo_envs/fourWay/env/single_junction.sumocfg")
     params = {
         'tls_id': 'htddj_gsndj',
         'num_seconds': 7200,
@@ -75,7 +77,7 @@ if __name__ == '__main__':
         'use_gui': False,
         'log_file': log_path,
     }
-    env = create_env(params, CPU_NUMS=20)
+    env = create_env(params, CPU_NUMS=num_envs)
 
     # Callbacks
     checkpoint_callback = CheckpointCallback(
