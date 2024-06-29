@@ -2,7 +2,7 @@
  * @Author: WANG Maonan
  * @Date: 2023-03-22 16:59:42
  * @Description: README for Paper AAP with CCDA
- * @LastEditTime: 2024-06-29 17:54:02
+ * @LastEditTime: 2024-06-30 01:06:24
 -->
 # Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies
 
@@ -15,6 +15,7 @@ This repository contains the code for the paper "Traffic Signal Cycle Control wi
   - [🏃‍♂️ Training](#️-training)
   - [🧪 Evaluation](#-evaluation)
   - [📚 Citation](#-citation)
+  - [📫 Contact](#-contact)
 
 ## 🎉 News
 
@@ -212,3 +213,7 @@ If you find this work useful, please cite our papers:
   year={2024}
 }
 ```
+
+## 📫 Contact
+
+If you have any questions, please open an issue in this repository. We will respond as soon as possible.
