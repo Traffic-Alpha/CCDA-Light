@@ -2,7 +2,7 @@
  * @Author: WANG Maonan
  * @Date: 2023-03-22 16:59:42
  * @Description: README for Paper AAP with CCDA
- * @LastEditTime: 2024-06-29 02:12:01
+ * @LastEditTime: 2024-06-29 17:54:02
 -->
 # Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies
 
@@ -129,31 +129,58 @@ Upon running the above command, a statistical analysis of various attributes suc
 
 ```
 Statistics for travelTime:
-  Mean: 111.31
-  Variance: 3493.35
-  Max: 323.00
-  Min: 41.00
-  Percentile_25: 64.00
-  Percentile_50: 88.00
-  Percentile_75: 148.00
+  Mean: 95.78
+  Variance: 1970.98
+  Max: 363.00
+  Min: 42.00
+  Percentile_25: 65.00
+  Percentile_50: 85.00
+  Percentile_75: 108.00
 
 Statistics for waitingTime:
-  Mean: 44.33
-  Variance: 3021.38
-  Max: 236.00
+  Mean: 25.09
+  Variance: 1009.32
+  Max: 242.00
   Min: 0.00
   Percentile_25: 0.00
-  Percentile_50: 20.00
-  Percentile_75: 74.00
+  Percentile_50: 17.00
+  Percentile_75: 35.00
 
 Statistics for waitingCount:
-  Mean: 0.86
-  Variance: 0.74
-  Max: 8.00
+  Mean: 1.30
+  Variance: 2.17
+  Max: 10.00
   Min: 0.00
   Percentile_25: 0.00
   Percentile_50: 1.00
-  Percentile_75: 1.00
+  Percentile_75: 2.00
+
+Statistics for stopTime:
+  Mean: 0.00
+  Variance: 0.00
+  Max: 0.00
+  Min: 0.00
+  Percentile_25: 0.00
+  Percentile_50: 0.00
+  Percentile_75: 0.00
+
+Statistics for timeLoss:
+  Mean: 50.47
+  Variance: 2048.42
+  Max: 318.27
+  Min: 6.42
+  Percentile_25: 19.31
+  Percentile_50: 38.38
+  Percentile_75: 62.55
+
+Statistics for CO_abs:
+  Mean: 11344.70
+  Variance: 43907549.64
+  Max: 53831.92
+  Min: 2969.10
+  Percentile_25: 6936.84
+  Percentile_50: 9646.80
+  Percentile_75: 13351.00
 
 ...
 ```
@@ -164,6 +191,13 @@ You can also use the `plot_tls_program.py` script to visualize the phase changes
 python plot_tls_program.py --action_type Adjust_All_Phases_Cycle --delta_time 60
 ```
 
+The figures below illustrate how the duration of various traffic light phases changes under different control intervals. It shows that as the control interval, denoted as $\Delta t$, increases, the changes in phase durations stabilize, while the general pattern remains similar:
+
+
+|$\Delta t = 60$|$\Delta t = 120$|$\Delta t = 300$|
+|:-:|:-:|:-:|
+|![512](./_assets/phase_duration_line_Adjust_All_Phases_Cycle_60.png)|![1024](./_assets/phase_duration_line_Adjust_All_Phases_Cycle_120.png)|![2048](./_assets/phase_duration_line_Adjust_All_Phases_Cycle_300.png)|
+|![512](./_assets/all_phase_duration_Adjust_All_Phases_Cycle_60.png)|![1024](./_assets/all_phase_duration_Adjust_All_Phases_Cycle_120.png)|![2048](./_assets/all_phase_duration_Adjust_All_Phases_Cycle_300.png)|
 
 
 ## 📚 Citation
