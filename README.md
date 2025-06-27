@@ -2,11 +2,11 @@
  * @Author: WANG Maonan
  * @Date: 2023-03-22 16:59:42
  * @Description: README for Paper AAP with CCDA
- * @LastEditTime: 2024-06-30 01:06:24
+ * @LastEditTime: 2025-06-27 14:23:47
 -->
 # Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies
 
-This repository contains the code for the paper "Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies".
+This repository contains the code for the paper "[Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies](https://ieeexplore.ieee.org/document/10696929)".
 
 - [Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies](#traffic-signal-cycle-control-with-centralized-critic-and-decentralized-actors-under-varying-intervention-frequencies)
   - [🎉 News](#-news)
@@ -19,8 +19,9 @@ This repository contains the code for the paper "Traffic Signal Cycle Control wi
 
 ## 🎉 News
 
-1. We have successfully implemented all commonly used `Action Designs` in traffic signal control. These include `Choose Next Phase`, `Next or Not`, `Set Current Phase Duration`, `Adjust Single Phase`, and `Adjust All Phases`. The weights for each model have been uploaded to the `save_models` directory corresponding to each method.
-2. We have migrated the simulation platform used in this project from Aiolos to [TransSimHub](https://github.com/Traffic-Alpha/TransSimHub) (TSHub). We would like to express our sincere gratitude to our colleagues at SenseTime, **@KanYuheng (阚宇衡)**, **@MaZian (马子安)**, and **@XuChengcheng (徐承成)** (in alphabetical order) for their valuable contributions. The development of TransSimHub (TSHub) is a continuation of the work done on Aiolos.
+1. Congratulations! Our research has been accepted by IEEE Transactions on Intelligent Transportation Systems. [Read the paper here](https://ieeexplore.ieee.org/document/10696929).
+2. We have successfully implemented all commonly used `Action Designs` in traffic signal control. These include `Choose Next Phase`, `Next or Not`, `Set Current Phase Duration`, `Adjust Single Phase`, and `Adjust All Phases`. The weights for each model have been uploaded to the `save_models` directory corresponding to each method.
+3. We have migrated the simulation platform used in this project from Aiolos to [TransSimHub](https://github.com/Traffic-Alpha/TransSimHub) (TSHub). We would like to express our sincere gratitude to our colleagues at SenseTime, **@KanYuheng (阚宇衡)**, **@MaZian (马子安)**, and **@XuChengcheng (徐承成)** (in alphabetical order) for their valuable contributions. The development of TransSimHub (TSHub) is a continuation of the work done on Aiolos.
 
 ## 🔑 Key Points
 
@@ -207,10 +208,14 @@ If you find this work useful, please cite our papers:
 
 ```bibtex
 @article{wang2024traffic,
-  title={Traffic Signal Cycle Control with Centralized Critic and Decentralized Actors under Varying Intervention Frequencies},
+  title={Traffic signal cycle control with centralized critic and decentralized actors under varying intervention frequencies},
   author={Wang, Maonan and Chen, Yirong and Kan, Yuheng and Xu, Chengcheng and Lepech, Michael and Pun, Man-On and Xiong, Xi},
-  journal={arXiv preprint arXiv:2406.08248},
-  year={2024}
+  journal={IEEE Transactions on Intelligent Transportation Systems},
+  year={2024},
+  volume={25},
+  number={12},
+  pages={20085-20104},
+  publisher={IEEE}
 }
 ```
 
